@@ -1,9 +1,15 @@
+using TMPro;
 using UnityEngine;
 
 public class Elevators : MonoBehaviour
 {
     [SerializeField] private Elevator leftElevator;
     [SerializeField] private Elevator rightElevator;
+
+    [SerializeField] TextMeshProUGUI weightTextLeftElevator;
+    [SerializeField] TextMeshProUGUI weightTextRightElevator;
+
+
     [SerializeField] private Vector2 heightRange;
     [SerializeField] private float maxVelocity = 2f;
     [SerializeField] private float accelerationForce = 0.1f;
@@ -40,5 +46,11 @@ public class Elevators : MonoBehaviour
             rightElevator.transform.position.x,
             Mathf.Lerp(heightRange.x, heightRange.y, 1f - _currentHeight),
             rightElevator.transform.position.z);
+
+
+        weightTextLeftElevator.text = leftElevator.Weight.ToString();
+        weightTextRightElevator.text = rightElevator.Weight.ToString();
+
     }
+
 }

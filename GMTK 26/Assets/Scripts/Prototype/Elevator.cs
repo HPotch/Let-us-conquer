@@ -3,7 +3,8 @@ using UnityEngine;
 public class Elevator : MonoBehaviour
 {
     public float Weight;
-    
+  
+
     private void OnTriggerEnter(Collider other)
     {
         Weight += TryGetWeight(other.gameObject);
