@@ -1,0 +1,22 @@
+using System;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance;
+
+    private void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
+    public Transform LevelCheckers;
+
+    private void Update()
+    {
+        if (UnityEngine.InputSystem.Keyboard.current.rKey.wasPressedThisFrame)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+}

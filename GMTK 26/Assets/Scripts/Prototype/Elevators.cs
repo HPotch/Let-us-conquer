@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Elevators : MonoBehaviour
 {
+    public float Velocity = 0f;
+    
     [SerializeField] private Elevator leftElevator;
     [SerializeField] private Elevator rightElevator;
     [SerializeField] private Vector2 heightRange;
@@ -10,25 +12,24 @@ public class Elevators : MonoBehaviour
     [SerializeField] private float drag = 0.1f;
     
     private float _currentHeight = 0.5f;
-    private float _velocity = 0f;
     
     private void Update()
     {
         float weightDiff = rightElevator.Weight - leftElevator.Weight;
         float acceleration = weightDiff * accelerationForce;
-        _velocity += acceleration * Time.deltaTime;
-        _velocity = Mathf.Clamp(_velocity, -maxVelocity, maxVelocity);
-        _currentHeight += _velocity * Time.deltaTime;
+        float targetVelocity = Velocity + acceleration * Time.deltaTime;
+        _currentHeight += Velocity * Time.deltaTime;
 
         if (_currentHeight <= 0f) {
             _currentHeight = 0f;
-            _velocity = 0f;
+            Velocity = 0f;
         } else if (_currentHeight >= 1f) {
             _currentHeight = 1f;
-            _velocity = 0f;
+            Velocity = 0f;
         }
 
-        _velocity *= Mathf.Max(1f - drag * Time.deltaTime, 0f);
+        Velocity = Mathf.Lerp(Velocity, targetVelocity, Mathf.Max(1f - drag * Time.deltaTime, 0f));
+        Velocity = Mathf.Clamp(Velocity, -maxVelocity, maxVelocity);
         
         _currentHeight = Mathf.Clamp01(_currentHeight);
         
@@ -40,5 +41,10 @@ public class Elevators : MonoBehaviour
             rightElevator.transform.position.x,
             Mathf.Lerp(heightRange.x, heightRange.y, 1f - _currentHeight),
             rightElevator.transform.position.z);
+    }
+
+    public float GetVelocity()
+    {
+        return Velocity * (heightRange.y - heightRange.x);
     }
 }

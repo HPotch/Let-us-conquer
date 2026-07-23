@@ -19,30 +19,20 @@ public class HotelGenerator : MonoBehaviour
     [SerializeField] private Transform rightWall;
     [SerializeField] private GameObject floorPrefab;
     [SerializeField] private Transform floors;
+    [SerializeField] private Transform levelCheckers;
     [SerializeField] private Transform roof;
     
-    private void Awake()
-    {
-        Generate();
-    }
-
     private void Update()
     {
         if (generate)
         {
             Generate();
-            //generate = false;
+            generate = false;
         }
     }
 
     private void Generate()
     {
-        // Reset
-        foreach (Transform floor in floors.transform)
-        {
-            DestroyImmediate(floor.gameObject);
-        }
-        
         // Set ground and walls
         ground.localScale = new Vector3(width, floorWallThickness, depth);
         float hotelHeight = (float)(numberOfFloors + 1) * (floorHeight + floorWallThickness);
@@ -55,12 +45,22 @@ public class HotelGenerator : MonoBehaviour
         roof.localScale = new Vector3(width, floorWallThickness, depth);
         roof.localPosition = new Vector3(0,  (floorWallThickness + floorHeight) * (numberOfFloors + 1), 0);
         
-        // Create floors
+        // Reset
+        foreach (Transform floor in floors.transform) DestroyImmediate(floor.gameObject);
+        foreach (Transform levelCheck in levelCheckers.transform) DestroyImmediate(levelCheck.gameObject);
+        
         for (int i = 0; i < numberOfFloors; i++)
         {
+            // Create floors
             GameObject floor = Instantiate(floorPrefab, floors);
             floor.transform.position = new Vector3(0, (floorWallThickness + floorHeight) * (i + 1), 0);
             floor.transform.localScale = new Vector3(width, floorWallThickness, depth);
+            
+            // Create levelChecks
+            GameObject levelCheck = new GameObject();
+            levelCheck.name = (i + 1).ToString();
+            levelCheck.transform.parent = levelCheckers.transform;
+            levelCheck.transform.localPosition = floor.transform.position;
         }
     }
 }
