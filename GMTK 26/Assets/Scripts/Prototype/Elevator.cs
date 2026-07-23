@@ -31,7 +31,7 @@ public class Elevator : MonoBehaviour
 
     private float TryGetWeight(GameObject go)
     {
-        return go.TryGetComponent<WeightObject>(out WeightObject weightObject) ? weightObject.Weight : 0f;
+        return go.TryGetComponent<Person>(out Person weightObject) ? weightObject.Weight : 0f;
     }
 
     private void Update()
@@ -39,7 +39,7 @@ public class Elevator : MonoBehaviour
         if (_elevators.GetVelocity() == 0f) return;
         foreach (Rigidbody rb in _rigidbodies)
         {
-            rb.linearVelocity = new Vector3(rb.linearVelocity.x, _elevators.GetVelocity(), rb.linearVelocity.z);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, Mathf.Abs(_elevators.GetVelocity()) * -1f - 0.981f, rb.linearVelocity.z);
         }
     }
 }

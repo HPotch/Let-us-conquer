@@ -31,7 +31,7 @@ public class RayManager : MonoBehaviour
     private void Update()
     {
         // Release object
-        if (Mouse.current.leftButton.wasReleasedThisFrame) _pickedUp = null;
+        if (Mouse.current.leftButton.wasReleasedThisFrame) Release();
         CastRay();
         // Pick up object
         if (_mouseOver && Mouse.current.leftButton.wasPressedThisFrame) PickUp(_mouseOver);
@@ -75,5 +75,15 @@ public class RayManager : MonoBehaviour
         _pickedUp = go;
         _startPosition = go.transform.position;
         _distance = (_startPosition - _cam.transform.position).magnitude;
+        
+        go.TryGetComponent<Rigidbody>(out var rb);
+        rb.freezeRotation = true;
+    }
+
+    private void Release()
+    {
+        if (!_pickedUp.TryGetComponent<Rigidbody>(out var rb)) return;
+        rb.freezeRotation = false;
+        _pickedUp = null;
     }
 }
