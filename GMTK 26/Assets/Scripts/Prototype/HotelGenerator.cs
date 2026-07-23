@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class HotelGenerator : MonoBehaviour
 {
     [SerializeField] private bool generate = false;
@@ -39,7 +40,7 @@ public class HotelGenerator : MonoBehaviour
         // Reset
         foreach (Transform floor in floors.transform)
         {
-            Destroy(floor.gameObject);
+            DestroyImmediate(floor.gameObject);
         }
         
         // Set ground and walls
