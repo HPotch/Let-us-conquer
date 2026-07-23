@@ -17,8 +17,7 @@ public class Elevators : MonoBehaviour
     {
         float weightDiff = rightElevator.Weight - leftElevator.Weight;
         float acceleration = weightDiff * accelerationForce;
-        Velocity += acceleration * Time.deltaTime;
-        Velocity = Mathf.Clamp(Velocity, -maxVelocity, maxVelocity);
+        float targetVelocity = Velocity + acceleration * Time.deltaTime;
         _currentHeight += Velocity * Time.deltaTime;
 
         if (_currentHeight <= 0f) {
@@ -29,7 +28,8 @@ public class Elevators : MonoBehaviour
             Velocity = 0f;
         }
 
-        Velocity *= Mathf.Max(1f - drag * Time.deltaTime, 0f);
+        Velocity = Mathf.Lerp(Velocity, targetVelocity, Mathf.Max(1f - drag * Time.deltaTime, 0f));
+        Velocity = Mathf.Clamp(Velocity, -maxVelocity, maxVelocity);
         
         _currentHeight = Mathf.Clamp01(_currentHeight);
         

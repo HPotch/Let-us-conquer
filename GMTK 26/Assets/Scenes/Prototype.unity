@@ -765,9 +765,9 @@ MonoBehaviour:
   leftElevator: {fileID: 2025638304}
   rightElevator: {fileID: 1600751629}
   heightRange: {x: -2.75, y: 17.75}
-  maxVelocity: 2
-  accelerationForce: 0.06
-  drag: 3.5
+  maxVelocity: 0.2
+  accelerationForce: 0.008
+  drag: 2.3
 --- !u!1 &327421000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,11 +1860,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9178016509147122384, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: Weight
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9178016509147122384, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: targetFloor
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4618,7 +4618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9178016509147122384, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: targetFloor
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
