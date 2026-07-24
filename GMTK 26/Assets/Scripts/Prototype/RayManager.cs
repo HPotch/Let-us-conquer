@@ -1,21 +1,27 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class RayManager : MonoBehaviour
 {
     // Manager
     public static RayManager Instance;
     
+    // Public
+    public GameObject PickedUp;
+    
     // Settings
     [SerializeField] private LayerMask pickUpMask;
     [SerializeField] private LayerMask collideMask;
     [SerializeField] private int disabledLayer;
+    [SerializeField] private float throwAmount = 0.1f;
+    
     
     // Private
     private GameObject _mouseOver;
-    private GameObject _pickedUp;
     private Vector3 _startPosition;
     private float _distance;
+    private Vector2 _prevMousePosition;
     
     // Static references
     private Camera _cam;
@@ -35,6 +41,8 @@ public class RayManager : MonoBehaviour
         CastRay();
         // Pick up object
         if (_mouseOver && Mouse.current.leftButton.wasPressedThisFrame) PickUp(_mouseOver);
+        
+        _prevMousePosition = Mouse.current.position.ReadValue();
     }
 
     private void CastRay()
@@ -42,7 +50,7 @@ public class RayManager : MonoBehaviour
         Ray ray = _cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         
         // Object picked up
-        if (_pickedUp)
+        if (PickedUp)
         {
             // Calculate target position, retaining the original Z axis
             Vector3 mousePosition = ray.GetPoint(_distance);
@@ -52,17 +60,17 @@ public class RayManager : MonoBehaviour
             Vector3 direction = targetPosition - _startPosition;
 
             // Prevent self-collision
-            int _previousLayer = _pickedUp.layer;
-            _pickedUp.gameObject.layer = disabledLayer;
+            int _previousLayer = PickedUp.layer;
+            PickedUp.gameObject.layer = disabledLayer;
 
             // Send ray
             if (direction.magnitude > 0.001f && Physics.Raycast(_startPosition, direction.normalized, out RaycastHit hit, direction.magnitude, collideMask))
                 // Snap to the point
-                _pickedUp.transform.position = hit.point;
-            else _pickedUp.transform.position = targetPosition; // Target is clear
+                PickedUp.transform.position = hit.point;
+            else PickedUp.transform.position = targetPosition; // Target is clear
             
             // Reset
-            _pickedUp.gameObject.layer = _previousLayer;
+            PickedUp.gameObject.layer = _previousLayer;
             return;
         }
         
@@ -72,7 +80,7 @@ public class RayManager : MonoBehaviour
 
     private void PickUp(GameObject go)
     {
-        _pickedUp = go;
+        PickedUp = go;
         _startPosition = go.transform.position;
         _distance = (_startPosition - _cam.transform.position).magnitude;
         
@@ -82,8 +90,12 @@ public class RayManager : MonoBehaviour
 
     private void Release()
     {
-        if (!_pickedUp.TryGetComponent<Rigidbody>(out var rb)) return;
+        if (!PickedUp) return;
+        if (!PickedUp.TryGetComponent<Rigidbody>(out var rb)) return;
+
+        Vector2 throwForce = Mouse.current.position.ReadValue() - _prevMousePosition;
+        rb.AddForce(new Vector3(throwForce.x, throwForce.y, 0f) * throwAmount);
         rb.freezeRotation = false;
-        _pickedUp = null;
+        PickedUp = null;
     }
 }
