@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -12,14 +11,15 @@ public class Person : MonoBehaviour
     [SerializeField] private TextMeshPro targetFloorText;
     
     private MeshRenderer _meshRenderer;
-    
     private int _currentFloor = 0;
+    private Rigidbody rb;
 
     private void Awake()
     {
         transform.localScale = Vector3.one * Mathf.Pow(Weight, 0.5f) / 3f;
         _meshRenderer = GetComponent<MeshRenderer>();
         targetFloorText.text = targetFloor.ToString();
+        rb =  GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -31,5 +31,16 @@ public class Person : MonoBehaviour
         }
         
         _meshRenderer.material = _currentFloor == targetFloor ? correctFloor : incorrectFloor;
+
+        transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y,
+            0f);
+    }
+
+    public void SetMoving(bool moving)
+    {
+        rb.isKinematic = !moving;
+        rb.freezeRotation = !moving;
     }
 }

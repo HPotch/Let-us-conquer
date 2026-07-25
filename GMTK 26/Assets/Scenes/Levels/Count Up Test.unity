@@ -259,6 +259,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Person (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6290082741958312023, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
+      propertyPath: m_Constraints
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 6915488184707362377, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.9199998
@@ -586,6 +590,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Person (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6290082741958312023, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
+      propertyPath: m_Constraints
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 6915488184707362377, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.09
@@ -836,8 +844,11 @@ MonoBehaviour:
   collideMask:
     serializedVersion: 2
     m_Bits: 55
+  leftElevator: {fileID: 2025638304}
+  rightElevator: {fileID: 1600751629}
   disabledLayer: 7
-  throwAmount: 10
+  throwAmount: 0.4
+  throwOutForce: 4
 --- !u!1 &285241445
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,6 +2106,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Person (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6290082741958312023, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
+      propertyPath: m_Constraints
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 6915488184707362377, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.95
@@ -3217,6 +3232,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1622784041}
   - {fileID: 271192734}
   - {fileID: 1427164773}
   m_Father: {fileID: 0}
@@ -3584,6 +3600,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Person (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6290082741958312023, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
+      propertyPath: m_Constraints
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 6915488184707362377, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.968
@@ -3768,6 +3788,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Person (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6290082741958312023, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
+      propertyPath: m_Constraints
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 6915488184707362377, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.95
@@ -3844,6 +3868,10 @@ PrefabInstance:
     - target: {fileID: 5576084085094958189, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: m_Name
       value: Person (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6290082741958312023, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
+      propertyPath: m_Constraints
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6915488184707362377, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4051,6 +4079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Elevator
   Weight: 0
+  EnteredObjects: []
   enterCurve:
     serializedVersion: 2
     m_Curve:
@@ -4126,6 +4155,54 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.4, y: 2, z: 8.189938}
   m_Center: {x: 0, y: 4.071605, z: 0}
+--- !u!1 &1622784040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1622784041}
+  - component: {fileID: 1622784042}
+  m_Layer: 0
+  m_Name: RopeSim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1622784041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622784040}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.28325, y: -0.24998951, z: -2.88831}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1249118084}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1622784042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1622784040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb5faba09fdd2b12b06ff6db058444c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RopeSim
+  gravity: 294.3
+  iterations: 5
+  _ropeLength: 4
+  holdDistance: 0.5
 --- !u!4 &1648013749 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6915488184707362377, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
@@ -5157,6 +5234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
   Weight: 0
+  EnteredObjects: []
   enterCurve:
     serializedVersion: 2
     m_Curve:
@@ -5444,6 +5522,10 @@ PrefabInstance:
     - target: {fileID: 5576084085094958189, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: m_Name
       value: Person
+      objectReference: {fileID: 0}
+    - target: {fileID: 6290082741958312023, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
+      propertyPath: m_Constraints
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 6915488184707362377, guid: 720f7689465f9dae4af153a0f5691f24, type: 3}
       propertyPath: m_LocalPosition.x
