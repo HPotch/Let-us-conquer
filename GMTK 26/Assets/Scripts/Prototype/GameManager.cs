@@ -25,8 +25,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Keyboard.current.rKey.wasPressedThisFrame)
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            SceneLoader.Instance.ReloadCurrentScene();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         
         Time.timeScale = Mathf.Lerp(
             Time.timeScale,
