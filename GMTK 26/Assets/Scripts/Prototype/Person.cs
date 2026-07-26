@@ -28,6 +28,8 @@ public class Person : MonoBehaviour
     private float _waitTime;
 
     private GameObject _previousHover;
+    
+    private Animator _animator;
 
     private void Awake()
     {
@@ -37,6 +39,7 @@ public class Person : MonoBehaviour
         NewTarget();
 
         GameObject meshInstance = Instantiate(Weight < 5f ? small : Weight < 10f ? medium : large, transform);
+        _animator =  meshInstance.transform.GetChild(0).GetChild(0).GetComponent<Animator>();
         mesh = meshInstance.transform;
     }
 
@@ -65,6 +68,11 @@ public class Person : MonoBehaviour
             Mathf.LerpAngle(mesh.transform.eulerAngles.y,
             -(float)_walkDirection * 90f, Time.deltaTime * 10f),
             0f);
+
+        if (RayManager.Instance.PickedUp == gameObject)
+            _animator.speed = 1f;
+        else
+            _animator.speed = _walkDirection == 0 ? 0f : 1f;
     }
 
     private IEnumerator HoverRoutine()
@@ -78,7 +86,6 @@ public class Person : MonoBehaviour
             yield return null;
         }
     }
-
 
 private void Walk()
     {
@@ -100,5 +107,15 @@ private void Walk()
         rb.isKinematic = !moving;
         rb.freezeRotation = !moving;
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
+    }
+
+    public void PickedUp()
+    {
+        _animator.SetTrigger("Grab");
+    }
+
+    public void Released()
+    {
+        _animator.SetTrigger("Release");
     }
 }

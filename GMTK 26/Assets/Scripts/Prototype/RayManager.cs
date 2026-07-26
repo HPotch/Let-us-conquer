@@ -100,7 +100,11 @@ public class RayManager : MonoBehaviour
             }
         }
         
-        if (person) person.SetMoving(false);
+        if (person)
+        {
+            person.SetMoving(false);
+            person.PickedUp();
+        }
 
         PickedUp = go;
         _startPosition = go.transform.position;
@@ -121,7 +125,10 @@ public class RayManager : MonoBehaviour
         {
             Vector3 throwForce = PickedUp.transform.position - _prevPosition;
             if (PickedUp.TryGetComponent<Person>(out var person))
+            {
                 person.SetMoving(true);
+                person.Released();
+            }
             rb.AddForce((new Vector3(throwForce.x, throwForce.y, 0f) / Time.deltaTime)* throwAmount, ForceMode.Impulse);
         }
         
