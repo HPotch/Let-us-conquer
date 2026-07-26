@@ -1,12 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Elevators : MonoBehaviour
 {
     public float Velocity = 0f;
+    public Vector2 HeightRange;
+    
     
     [SerializeField] private Elevator leftElevator;
     [SerializeField] private Elevator rightElevator;
-    [SerializeField] private Vector2 heightRange;
     [SerializeField] private float maxVelocity = 2f;
     [SerializeField] private float accelerationForce = 0.1f;
     [SerializeField] private float drag = 0.1f;
@@ -35,16 +37,16 @@ public class Elevators : MonoBehaviour
         
         leftElevator.transform.position = new Vector3(
             leftElevator.transform.position.x,
-            Mathf.Lerp(heightRange.x, heightRange.y, _currentHeight),
+            Mathf.Lerp(HeightRange.x, HeightRange.y, _currentHeight),
             leftElevator.transform.position.z);
         rightElevator.transform.position = new Vector3(
             rightElevator.transform.position.x,
-            Mathf.Lerp(heightRange.x, heightRange.y, 1f - _currentHeight),
+            Mathf.Lerp(HeightRange.x, HeightRange.y, 1f - _currentHeight),
             rightElevator.transform.position.z);
     }
 
     public float GetVelocity()
     {
-        return Velocity * (heightRange.y - heightRange.x);
+        return Velocity * (HeightRange.y - HeightRange.x);
     }
 }

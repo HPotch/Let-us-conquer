@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     [Header("References")]
     public Transform LevelCheckers;
+    public Elevator LeftElevator;
+    public Elevator RightElevator;
     [SerializeField] private RawImage skipImage;
 
     [Header("Settings")]

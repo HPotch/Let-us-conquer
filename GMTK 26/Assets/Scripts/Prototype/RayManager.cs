@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class RayManager : MonoBehaviour
 {
     public static RayManager Instance;
     
     public GameObject PickedUp;
+    public GameObject MouseOver;
     
     [SerializeField] private LayerMask pickUpMask, collideMask;
     [SerializeField] private Elevator leftElevator, rightElevator;
@@ -13,7 +15,6 @@ public class RayManager : MonoBehaviour
     [SerializeField] private float throwAmount = 0.1f;
     [SerializeField] private float throwOutForce = 4f;
     
-    private GameObject _mouseOver;
     private Vector3 _startPosition;
     private float _distance;
     private Vector3 _prevPosition;
@@ -38,8 +39,8 @@ public class RayManager : MonoBehaviour
         
         CastRay();
         
-        if (_mouseOver && Mouse.current.leftButton.wasPressedThisFrame) 
-            PickUp(_mouseOver);
+        if (MouseOver && Mouse.current.leftButton.wasPressedThisFrame) 
+            PickUp(MouseOver);
         
     }
 
@@ -74,7 +75,7 @@ public class RayManager : MonoBehaviour
         }
         
         // No object picked up
-        _mouseOver = Physics.Raycast(ray, out RaycastHit hitSelect, 500f, pickUpMask) ? hitSelect.collider.gameObject : null;
+        MouseOver = Physics.Raycast(ray, out RaycastHit hitSelect, 500f, pickUpMask) ? hitSelect.collider.gameObject : null;
     }
 
     private void PickUp(GameObject go)
@@ -83,14 +84,14 @@ public class RayManager : MonoBehaviour
         
         if (go.TryGetComponent<Rigidbody>(out var rb))
         {
-            if (leftElevator.EnteredObjects.Contains(go))
+            if (leftElevator.Bodies.ContainsKey(rb))
             {
                 if (person) person.SetMoving(true);
                 rb.linearVelocity = new Vector3(-throwOutForce, 0, 0);
                 leftElevator.Eject(go);
                 return;
             }
-            if (rightElevator.EnteredObjects.Contains(go))
+            if (rightElevator.Bodies.ContainsKey(rb))
             {
                 if (person) person.SetMoving(true);
                 rb.linearVelocity = new Vector3(throwOutForce, 0, 0);

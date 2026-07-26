@@ -7,6 +7,7 @@ public class Elevator : MonoBehaviour
 {
     public float Weight;
     public List<GameObject> EnteredObjects = new List<GameObject>();
+    public Dictionary<Rigidbody, Vector3> Bodies = new Dictionary<Rigidbody, Vector3>();
 
     [SerializeField] private AnimationCurve enterCurve;
     [SerializeField] private float enterTime = 1f;
@@ -14,7 +15,6 @@ public class Elevator : MonoBehaviour
     [SerializeField] private Transform visual;
     
     private Elevators _elevators;
-    private Dictionary<Rigidbody, Vector3> _bodies = new Dictionary<Rigidbody, Vector3>();
     private GameObject _mightEnter;
     private List<GameObject> _ignore = new List<GameObject>();
 
@@ -27,7 +27,7 @@ public class Elevator : MonoBehaviour
     {
         if (!EnteredObjects.Contains(other.gameObject)) EnteredObjects.Add(other.gameObject);
         if (other.isTrigger) return;
-        if (_bodies.ContainsKey(other.attachedRigidbody) || _mightEnter == other.gameObject) return;
+        if (Bodies.ContainsKey(other.attachedRigidbody) || _mightEnter == other.gameObject) return;
         StartCoroutine(AddWeightRoutine(other));
     }
 
@@ -41,7 +41,7 @@ public class Elevator : MonoBehaviour
             Weight += TryGetWeight(other.gameObject);
             Vector3 difference = other.attachedRigidbody.position - transform.position;
             difference.y = 3.6f;
-            _bodies.Add(other.attachedRigidbody, difference);
+            Bodies.Add(other.attachedRigidbody, difference);
             if (other.TryGetComponent<Person>(out var person))
                 person.SetMoving(false);
             StartCoroutine(EnterAnimation());
@@ -65,10 +65,10 @@ public class Elevator : MonoBehaviour
     {
         if (EnteredObjects.Contains(other.gameObject)) EnteredObjects.Remove(other.gameObject);
         if (other.isTrigger) return;
-        if (!_bodies.ContainsKey(other.attachedRigidbody)) return;
+        if (!Bodies.ContainsKey(other.attachedRigidbody)) return;
         
         Weight -= TryGetWeight(other.gameObject);
-        _bodies.Remove(other.attachedRigidbody);
+        Bodies.Remove(other.attachedRigidbody);
     }
 
     private float TryGetWeight(GameObject go)
@@ -79,7 +79,7 @@ public class Elevator : MonoBehaviour
     private void Update()
     {
         if (_elevators.GetVelocity() == 0f) return;
-        foreach (var rb in _bodies)
+        foreach (var rb in Bodies)
         {
             if (RayManager.Instance.PickedUp == rb.Key.gameObject || _ignore.Contains(rb.Key.gameObject))  continue;
             rb.Key.position = Vector3.Lerp(rb.Key.position, transform.position + rb.Value, 20f * Time.deltaTime);
@@ -89,9 +89,12 @@ public class Elevator : MonoBehaviour
     public void Eject(GameObject go)
     {
         EnteredObjects.Remove(go);
-        Weight -= TryGetWeight(go);
-        _bodies.Remove(go.GetComponent<Rigidbody>());
         StartCoroutine(IgnoreRoutine(go));
+        
+        Rigidbody rb = go.GetComponent<Rigidbody>();
+        if (!Bodies.ContainsKey(rb)) return;
+        Bodies.Remove(rb);
+        Weight -= TryGetWeight(go);
     }
 
     private IEnumerator IgnoreRoutine(GameObject go)
