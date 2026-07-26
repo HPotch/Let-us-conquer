@@ -1236,8 +1236,10 @@ MonoBehaviour:
   rightElevator: {fileID: 1600751629}
   heightRange: {x: -2.75, y: 17.75}
   maxVelocity: 0.2
-  accelerationForce: 0.008
-  drag: 2.3
+  minVelocity: 0.01
+  accelerationForce: 0.02
+  normalDrag: 0.1
+  emptyElevatorDragModifier: 8
 --- !u!1 &327421000
 GameObject:
   m_ObjectHideFlags: 0

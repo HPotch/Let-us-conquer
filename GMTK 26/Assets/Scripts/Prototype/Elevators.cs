@@ -30,7 +30,7 @@ public class Elevators : MonoBehaviour
 
         float drag = weightDiff == 0f ? normalDrag * emptyElevatorDragModifier : normalDrag;
 
-        float targetVelocity = Velocity + acceleration * Time.deltaTime - drag * Velocity * Velocity;        
+        float targetVelocity = Velocity + acceleration * Time.deltaTime - drag * Velocity * Velocity * Mathf.Sign(Velocity);        
         
 
         if (_currentHeight <= 0f) {
