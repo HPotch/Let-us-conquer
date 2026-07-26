@@ -9,8 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6915488184707362377}
-  - component: {fileID: 7317600425843527201}
-  - component: {fileID: 4340022532128160855}
   - component: {fileID: 3387917818128308489}
   - component: {fileID: 6290082741958312023}
   - component: {fileID: 9178016509147122384}
@@ -39,63 +37,6 @@ Transform:
   - {fileID: 4660187269551883168}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7317600425843527201
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5576084085094958189}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4340022532128160855
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5576084085094958189}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &3387917818128308489
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -115,7 +56,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.5, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6290082741958312023
 Rigidbody:
@@ -142,7 +83,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 56
   m_CollisionDetection: 0
 --- !u!114 &9178016509147122384
 MonoBehaviour:
@@ -161,6 +102,75 @@ MonoBehaviour:
   correctFloor: {fileID: 2100000, guid: 1b30d6c72ce6d3220963ef3d76525ccb, type: 2}
   incorrectFloor: {fileID: 2100000, guid: eba09d97e38bf26d7a57867036195a4a, type: 2}
   targetFloorText: {fileID: 1124313737724050626}
+  walkSpeed: 0.5
+  waitRange: {x: 1.5, y: 5}
+  scaleFactor: 1.5
+  hoverCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 9.506643
+      outSlope: 9.506643
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.04951024
+      value: 0.47067618
+      inSlope: 2.338653
+      outSlope: 2.338653
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33333334
+      outWeight: 0.41512316
+    - serializedVersion: 3
+      time: 0.28987616
+      value: -0.31695294
+      inSlope: 2.2972538
+      outSlope: 2.2972538
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.33333334
+      outWeight: 0.2789524
+    - serializedVersion: 3
+      time: 0.49082994
+      value: 0.16970587
+      inSlope: -0.16558582
+      outSlope: -0.16558582
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.63611066
+      outWeight: 0.4084151
+    - serializedVersion: 3
+      time: 0.7174976
+      value: 0.01038716
+      inSlope: 1.5568147
+      outSlope: 1.5568147
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.41141543
+      outWeight: 0.29452023
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0.54692006
+      outSlope: 0.54692006
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.4776091
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  hoverTime: 0.8
+  hoverAmount: 0.1
+  mesh: {fileID: 0}
+  small: {fileID: 6497490339480517114, guid: fc8cb60ff9694e6e7abe33511cc3789e, type: 3}
+  medium: {fileID: 1237605246385477852, guid: 08329769045ce390488bb15b9a4bec0e, type: 3}
+  large: {fileID: 6737865538581910742, guid: 03530cbb5e4d566bdb853330ab4c6ff5, type: 3}
 --- !u!114 &5462473572527084755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +202,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 1.5, z: 1.5}
+  m_Size: {x: 1, y: 1.5, z: 1.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9204002842059661201
 GameObject:
